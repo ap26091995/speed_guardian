@@ -1,0 +1,1 @@
+C:\Users\Lenovo\AndroidStudioProjects\practice_app\build\app\intermediates\cxx\Debug\213d236a\obj\x86_64

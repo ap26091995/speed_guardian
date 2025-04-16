@@ -1,0 +1,2 @@
+C:/Users/Lenovo/AndroidStudioProjects/practice_app/android/app/.cxx/Debug/213d236a/x86/CMakeFiles/edit_cache.dir
+C:/Users/Lenovo/AndroidStudioProjects/practice_app/android/app/.cxx/Debug/213d236a/x86/CMakeFiles/rebuild_cache.dir
