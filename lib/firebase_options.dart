@@ -58,7 +58,7 @@ class DefaultFirebaseOptions {
     androidClientId: "776954477401-srdsqu03is5b4j050j7vulvlktsf6sjk.apps.googleusercontent.com"
   );
 
-
+//776954477401-srdsqu03is5b4j050j7vulvlktsf6sjk.apps.googleusercontent.com
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBY3b6X_MnyrRz2pxj1fygpf7lqLBuyj2o',
     appId: '1:776954477401:ios:e5a6330243115e68ab6a48',
