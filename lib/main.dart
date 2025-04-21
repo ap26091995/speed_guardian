@@ -6,6 +6,7 @@ import 'package:practice_app/screens/admobscreen.dart';
 import 'package:practice_app/screens/getspeed.dart';
 import 'package:practice_app/screens/mapscreen.dart';
 import 'package:practice_app/screens/speedmap.dart';
+import 'package:practice_app/screens/splash_screen/splash_screen.dart';
 
 import 'firebase_options.dart';
 
@@ -61,7 +62,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Speed Guardian',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -81,7 +82,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MapWithSpeedScreen(),
+      debugShowCheckedModeBanner: false,
+      home: const SplashScreen(),
     );
   }
 }

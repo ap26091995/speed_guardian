@@ -50,8 +50,8 @@ class _MapWithSpeedScreenState extends State<MapWithSpeedScreen> with WidgetsBin
     _serviceStatusStream = Geolocator.getServiceStatusStream().listen((ServiceStatus status) {
       if (status == ServiceStatus.disabled) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text('Location services are disabled. Please enable GPS.'),
+          const SnackBar(
+            content: Text('Location services are disabled. Please enable GPS.'),
             action: SnackBarAction(
               label: 'Enable',
               onPressed: Geolocator.openLocationSettings,
@@ -95,8 +95,8 @@ class _MapWithSpeedScreenState extends State<MapWithSpeedScreen> with WidgetsBin
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Location services are disabled.'),
+        const SnackBar(
+          content: Text('Location services are disabled.'),
           action: SnackBarAction(
             label: 'Enable',
             onPressed: Geolocator.openLocationSettings,
@@ -112,8 +112,8 @@ class _MapWithSpeedScreenState extends State<MapWithSpeedScreen> with WidgetsBin
     }
     if (permission == LocationPermission.deniedForever) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Permission denied forever. Open app settings.'),
+        const SnackBar(
+          content: Text('Permission denied forever. Open app settings.'),
           action: SnackBarAction(
             label: 'Settings',
             onPressed: Geolocator.openAppSettings,
@@ -197,7 +197,7 @@ class _MapWithSpeedScreenState extends State<MapWithSpeedScreen> with WidgetsBin
           // Speed overlay (top right)
           Positioned(
             top: 20,
-            right: 20,
+            left: 20,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(

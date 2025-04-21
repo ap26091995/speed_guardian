@@ -43,6 +43,7 @@ dependencies:
   firebase_auth:
   firebase_core:
   google_maps_flutter:
+  connectivity_wrapper: ^1.1.4
 
 dev_dependencies:
   flutter_test:
@@ -54,7 +55,14 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
+  flutter_launcher_icons: ^0.14.3
 
+
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
