@@ -4,6 +4,7 @@ import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:flutter/material.dart';
 
 import '../../service/global.dart';
+import '../carouselbanner.dart';
 import '../speedmap.dart';
 import 'offline_screen.dart';
 
@@ -31,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
         print("Disconnected 11");
         OfflinePage.show(context);
       } else {
-        push(context: context, screen: MapWithSpeedScreen(),pushUntil: true);
+        push(context: context, screen: CarouselBanners(),pushUntil: true);
       }
     });
   }
