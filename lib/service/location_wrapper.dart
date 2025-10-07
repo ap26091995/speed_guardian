@@ -1,4 +1,3 @@
-// location_wrapper.dart
 import 'package:geolocator/geolocator.dart';
 
 class LocationWrapper {
