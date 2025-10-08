@@ -15,8 +15,15 @@ jobs:
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.16.9'
+          flutter-version: '3.22.1'
           channel: 'stable'
+
+      - name: Verify versions
+        run: |
+            echo "Flutter version:"
+            flutter --version
+            echo "Dart version:"
+            dart --version
 
       - run: flutter pub get
       - name: Run Tests

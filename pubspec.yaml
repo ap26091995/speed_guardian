@@ -44,7 +44,7 @@ dependencies:
   firebase_core:
   google_maps_flutter:
   connectivity_wrapper: ^1.1.4
-  mockito: ^5.5.1
+  mockito: ^5.4.2
 
 dev_dependencies:
   flutter_test:
