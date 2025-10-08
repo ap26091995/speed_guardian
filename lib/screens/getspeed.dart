@@ -37,7 +37,7 @@ class _GetSpeedScreenState extends State<GetSpeedScreen> {
 
       _positionStream!.listen((Position position) {
         double speedKmh = (position.speed) * 3.6; // Convert m/s to km/h
-        print("Speed: ${speedKmh.toStringAsFixed(2)} km/h");
+      //  print("Speed: ${speedKmh.toStringAsFixed(2)} km/h");
 
         setState(() {
           _currentSpeed = speedKmh;
