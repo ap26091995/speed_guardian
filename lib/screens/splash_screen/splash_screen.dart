@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
         print("Disconnected 11");
         OfflinePage.show(context);
       } else {
-        push(context: context, screen: CarouselBanners(),pushUntil: true);
+        push(context: context, screen: MapWithSpeedScreen(),pushUntil: true);
       }
     });
   }
