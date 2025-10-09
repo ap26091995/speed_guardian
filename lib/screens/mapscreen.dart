@@ -80,6 +80,7 @@ class _CurrentLocationMapScreenState extends State<CurrentLocationMapScreen>  wi
     });
   }
 
+
   Future<void> _getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
