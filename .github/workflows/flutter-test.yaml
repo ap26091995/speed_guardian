@@ -1,44 +1,84 @@
 name: Flutter Tests
 
 on:
-  workflow_dispatch:  # Allows manual triggering
+  workflow_dispatch:
   push:
     branches:
-      - master
+    - master
+  pull_request:
+    branches:
+    - master
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: subosito/flutter-action@v2
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.1'
-          channel: 'stable'
 
-      - name: Verify versions
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run tests with detailed output
         run: |
-            echo "Flutter version:"
-            flutter --version
-            echo "Dart version:"
-            dart --version
+          echo "🧪 Running Flutter tests..."
+          flutter test --reporter json | tee test_results.json || true
+          flutter test --reporter expanded
 
-      - run: flutter pub get
-      - name: Run Tests
-        run: flutter test > test_results.txt 2>&1 || echo "TESTS_FAILED=true" >> $GITHUB_ENV
-
-      - name: Upload Test Results
+      - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: test_results.txt
+          path: |
+            test_results.json
+            coverage/
 
-      - name: Report Status
+      - name: Test summary
+        id: test-summary
         run: |
           if flutter test; then
+            echo "✅ ALL TESTS PASSED"
             echo "TESTS_PASSED=true" >> $GITHUB_ENV
+            echo "SUMMARY=All tests passed successfully!" >> $GITHUB_ENV
           else
+            echo "❌ SOME TESTS FAILED"
             echo "TESTS_PASSED=false" >> $GITHUB_ENV
+            echo "SUMMARY=Some tests failed. Check the workflow for details." >> $GITHUB_ENV
           fi
+
+  notify:
+    needs: test
+    runs-on: ubuntu-latest
+    if: always()  # Always run, even if tests fail
+
+    steps:
+      - name: Send email notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "Flutter Tests - ${{ needs.test.result }}"
+          body: |
+            Flutter Test Results
+            
+            Repository: ${{ github.repository }}
+            Workflow: ${{ github.workflow }}
+            Status: ${{ needs.test.result }}
+            Commit: ${{ github.sha }}
+            
+            ${{ env.SUMMARY }}
+            
+            View details: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            
+            ---
+            Tests completed at: ${{ github.event.head_commit.timestamp }}
+          to: ankupatel.26@gmail.com  # Change to your email
+          from: GitHub Actions
