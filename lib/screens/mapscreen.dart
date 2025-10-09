@@ -65,7 +65,6 @@ class _CurrentLocationMapScreenState extends State<CurrentLocationMapScreen>  wi
     }
   }
 
-
   Future<void> _loadCustomMarkerIcon() async {
     final ByteData bytes = await rootBundle.load('assets/images/gps.png');
     final Uint8List list = bytes.buffer.asUint8List();
