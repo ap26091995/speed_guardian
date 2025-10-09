@@ -1,44 +1,50 @@
 name: Flutter Tests
 
 on:
-  workflow_dispatch:  # Allows manual triggering
   push:
-    branches:
-      - master
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: subosito/flutter-action@v2
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.1'
-          channel: 'stable'
 
-      - name: Verify versions
-        run: |
-            echo "Flutter version:"
-            flutter --version
-            echo "Dart version:"
-            dart --version
+      - name: Install dependencies
+        run: flutter pub get
 
-      - run: flutter pub get
-      - name: Run Tests
-        run: flutter test > test_results.txt 2>&1 || echo "TESTS_FAILED=true" >> $GITHUB_ENV
-
-      - name: Upload Test Results
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: test_results.txt
-
-      - name: Report Status
+      - name: Run tests
+        id: tests
         run: |
           if flutter test; then
-            echo "TESTS_PASSED=true" >> $GITHUB_ENV
+            echo "TEST_RESULT=passed" >> $GITHUB_OUTPUT
+            echo "TEST_MESSAGE=✅ All tests passed!" >> $GITHUB_OUTPUT
           else
-            echo "TESTS_PASSED=false" >> $GITHUB_ENV
+            echo "TEST_RESULT=failed" >> $GITHUB_OUTPUT  
+            echo "TEST_MESSAGE=❌ Some tests failed" >> $GITHUB_OUTPUT
           fi
+
+      - name: Send results to n8n
+        if: always()
+        run: |
+          curl -X POST "${{ secrets.N8N_WEBHOOK_URL }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "repository": "${{ github.repository }}",
+              "commit": "${{ github.sha }}",
+              "branch": "${{ github.ref_name }}", 
+              "author": "${{ github.actor }}",
+              "test_result": "${{ steps.tests.outputs.TEST_RESULT }}",
+              "test_message": "${{ steps.tests.outputs.TEST_MESSAGE }}",
+              "workflow_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+              "event": "push"
+            }'
