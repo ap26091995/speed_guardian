@@ -80,5 +80,5 @@ jobs:
             
             ---
             Tests completed at: ${{ github.event.head_commit.timestamp }}
-          to: ankupatel.26@gmail.com  # Change to your email
+          to: ankupatel.26@gmail.com  # Change to your email for notifications
           from: GitHub Actions
