@@ -311,7 +311,7 @@ class _MapWithSpeedScreenState extends State<MapWithSpeedScreen>
             zoomControlsEnabled: true,
             initialCameraPosition: CameraPosition(
               target: _viewModel.currentLocation ?? const LatLng(0, 0),
-              zoom: 15.0,
+              zoom: 20.0,
             ),
             markers: _buildMarkers(),
             myLocationEnabled: true,
