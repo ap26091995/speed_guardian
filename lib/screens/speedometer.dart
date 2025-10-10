@@ -9,7 +9,6 @@ class Speedometer extends StatelessWidget {
     this.size = 300
   });
 
-
   final double speed;
   final double speedRecord;
   final double size;
