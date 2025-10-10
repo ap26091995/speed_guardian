@@ -6,7 +6,7 @@ class Speedometer extends StatelessWidget {
   Speedometer({
     required this.speed,
     required this.speedRecord,
-    this.size = 290
+    this.size = 300
   });
 
   final double speed;
