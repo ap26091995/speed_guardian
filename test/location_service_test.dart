@@ -30,6 +30,7 @@ void main() {
     verify(mockLocationWrapper.isLocationServiceEnabled()).called(1);
   });
 
+
   test('checkLocationService returns false when disabled', () async {
     // Arrange
     when(mockLocationWrapper.isLocationServiceEnabled())
